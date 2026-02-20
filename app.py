@@ -61,9 +61,10 @@ def addproduct():
     product_description=request.form['product_description']
     product_category=request.form['product_category']
     product_cost=request.form['product_cost']
-    product_image=request.files[0]
-
+    product_image=request.files['product_image']
+    
     print(product_name,product_description,product_cost,product_category,product_image)
+    return jsonify({"message":"product added successfully"})
 if __name__ == ("__main__"):
     app.run(debug=True,port=5000)
     # port=5000 is optional
