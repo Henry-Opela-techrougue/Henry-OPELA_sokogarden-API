@@ -1,8 +1,11 @@
 from flask import *
 import pymysql
 import os
+from flask_cors import CORS
 
 app=Flask(__name__)
+CORS(app)
+
 app.config['UPLOAD_FOLDER']='static/images'
 
 @app.route("/api/signup",methods=["POST"])
@@ -15,7 +18,7 @@ def signup():
 
     print(username,email,phone,password)
     # create db connection
-    connection=pymysql.connect(host="localhost",user="root",password="",database="henry_sokogarden")
+    connection=pymysql.connect(host="mysql-opelahenry.alwaysdata.net",user="opelahenry",password="modcom2026",database="opelahenry_sokogarden")
 
     # create cursor
     cursor=connection.cursor()
@@ -38,7 +41,7 @@ def sign_in():
     print(email,password)
 
     # create database connection
-    connection=pymysql.connect(host="localhost",user="root",password="",database="henry_sokogarden")
+    connection=pymysql.connect(host="mysql-opelahenry.alwaysdata.net",user="opelahenry",password="modcom2026",database="opelahenry_sokogarden")
 
     # create cursor
     cursor=connection.cursor()
@@ -76,7 +79,7 @@ def addproduct():
     
     print(product_name,product_description,product_cost,product_category,product_image)
      # connect to db
-    connection=pymysql.connect(host="localhost",user="root",password="",database="henry_sokogarden")
+    connection=pymysql.connect(host="mysql-opelahenry.alwaysdata.net",user="opelahenry",password="modcom2026",database="opelahenry_sokogarden")
 
     # sql to be executed
     sql="insert into product_details (product_name,product_description,product_cost,product_category,product_image) values(%s,%s,%s,%s,%s)" 
@@ -93,7 +96,7 @@ def addproduct():
 
 @app.route("/api/get_products")
 def get_products():
-    connection=pymysql.connect(host="localhost",user="root",password="",database="henry_sokogarden")
+    connection=pymysql.connect(host="mysql-opelahenry.alwaysdata.net",user="opelahenry",password="modcom2026",database="opelahenry_sokogarden")
     cursor=connection.cursor(pymysql.cursors.DictCursor)
     sql=("select * from product_details")
     cursor.execute(sql)
@@ -162,6 +165,6 @@ def mpesa_payment():
         return jsonify({"message": "Please Complete Payment in Your Phone and we will deliver in minutes"})
     
    
-if __name__ == ("__main__"):
-    app.run(debug=True,port=5001)
+#if __name__ == ("__main__"):
+ #   app.run(debug=True,port=5001)
     # port=5000 is optional
